@@ -33,6 +33,9 @@ jobs:
       run: |
         ls
         pwd
+        cd myapp
+        ls
+        pwd
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
