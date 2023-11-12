@@ -32,7 +32,9 @@ jobs:
         echo "env=NEW_VERSION=${new_version}" >> $GITHUB_ENV
 
     - name: Build-with-Maven
-      run: mvn -B package --file ./myapp/pom.xml
+      run: |
+        mvn -B package --file ./myapp/pom.xml
+        echo "Output from Step 1: $NEW_VERSION"
 
   build2:
     needs: build
@@ -41,7 +43,7 @@ jobs:
     steps:
     - name: build-with-Docker
       run: |
-        cd myapp
+        # cd myapp
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         echo "Output use mvn help: $current_version"
         echo "Output from Step 1: ${{ steps.step1.outputs.env }}"
