@@ -1,3 +1,19 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +39,8 @@ jobs:
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
-		echo "env=NEW_VERSION=${new_version}" >> $GITHUB_ENV
+        echo "env=NEW_VERSION=${new_version}" >> $GITHUB_ENV
+	
 
     - name: Build-with-Maven
       run: mvn -B package --file ./myapp/pom.xml
@@ -35,8 +52,9 @@ jobs:
     steps:
     - name: build-with-Docker
       run: |
-		cd myapp
-        current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-		echo "Output use mvn help: $current_version"
-		echo "Output from Step 1: $NEW_VERSION"
+	cd myapp
+ 
+ 	current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+  	echo "Output use mvn help: $current_version"
+	echo "Output from Step 1: $NEW_VERSION"
         docker build -t myapp --build-arg PROJECT_VERSION=$NEW_VERSION .
