@@ -40,7 +40,6 @@ jobs:
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
         echo "env=NEW_VERSION=${new_version}" >> $GITHUB_ENV
-	
 
     - name: Build-with-Maven
       run: mvn -B package --file ./myapp/pom.xml
@@ -52,9 +51,8 @@ jobs:
     steps:
     - name: build-with-Docker
       run: |
-	cd myapp
- 
- 	current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-  	echo "Output use mvn help: $current_version"
-	echo "Output from Step 1: $NEW_VERSION"
+        cd myapp
+        current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "Output use mvn help: $current_version"
+        echo "Output from Step 1: $NEW_VERSION"
         docker build -t myapp --build-arg PROJECT_VERSION=$NEW_VERSION .
