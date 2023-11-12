@@ -30,8 +30,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-  
-	# ronenw Update Minor Version via plugin And run
+
+# ronenw Update Minor Version via plugin And run
     - name: Update-Minor-Version
       run: |
         cd myapp
