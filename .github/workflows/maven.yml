@@ -42,12 +42,13 @@ jobs:
 
     - name: Build-with-Maven
       run: mvn -B package --file ./myapp/pom.xml
-      
-  step2:
-	needs: build
-	runs-on: ubuntu-latest
+
+  build2:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: build-with-Docker
+      run: |
+        docker build -t myapp --build-arg PROJECT_VERSION=${{ needs.build.outputs.myOutput }} .
   
-  steps:
-  - name: build-with-Docker
-    run: |
-      docker build -t myapp --build-arg PROJECT_VERSION=${{ needs.build.outputs.myOutput }} .
