@@ -18,7 +18,7 @@ jobs:
 # ronenw Update Minor Version via plugin And run
     - name: Update-Minor-Version
       id: step1
-	  run: |
+      run: |
         cd myapp
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
