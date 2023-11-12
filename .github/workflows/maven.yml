@@ -29,12 +29,14 @@ jobs:
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
-        echo "env=NEW_VERSION=${new_version}" >> $GITHUB_ENV
+        echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+        echo "NEW_VERSION set to: $new_version"
 
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
         echo "Output from Step 1: $NEW_VERSION"
+        echo "Output from Step 1: ${{ env.NEW_VERSION }}"
 
   build2:
     needs: build
