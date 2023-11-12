@@ -39,3 +39,10 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file ./myapp/pom.xml
 
+    - name: build with Docker
+      run: |
+        ehco ${new_version}
+        docker build -t myapp --build-arg PROJECT_VERSION=${new_version} .
+    
+      
+    
