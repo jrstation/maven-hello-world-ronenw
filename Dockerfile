@@ -16,6 +16,7 @@ RUN adduser -D myuser
 WORKDIR /app
 
 # Copy the JAR file from the build stage
+ARG PROJECT_VERSION
 COPY --from=build /app/target/myapp-${PROJECT_VERSION}.jar /app/myapp.jar
 
 # Give ownership of the /app directory to the non-root user
