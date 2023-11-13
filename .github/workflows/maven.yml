@@ -59,6 +59,10 @@ jobs:
         
     - name: build-with-Docker
       run: |
+        pwd
+        ls -l 
+        ls -l ./myapp
+        ls -l $GITHUB_WORKSPACE
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
         #echo "Output from Step 1: $(cat myapp/version.txt)"
         #echo "Output from Step 1: ${{ needs.build.outputs.env }}"
