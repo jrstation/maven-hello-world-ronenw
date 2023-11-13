@@ -21,3 +21,6 @@ target/
 /.maven
 /.repository
 .flattened-pom.xml
+
+# Text #
+*.txt
