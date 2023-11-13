@@ -32,7 +32,7 @@ jobs:
         #echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
         #echo "NEW_VERSION set to: $new_version"
         echo $new_version > version.txt
-        cp myapp/version.txt $GITHUB_WORKSPACE
+        cp version.txt $GITHUB_WORKSPACE
 
     - name: Build-with-Maven
       run: |
