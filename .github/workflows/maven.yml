@@ -36,6 +36,7 @@ jobs:
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
+        echo "Output from Step 1: $(cat myapp/version.txt)"
         #echo "Output from Step 1: ${{ env.NEW_VERSION }}"
         #echo "::set-output name=env::${{ env.NEW_VERSION }}"
 
