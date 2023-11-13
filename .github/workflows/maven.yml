@@ -44,12 +44,6 @@ jobs:
     - name: build-with-Docker
       run: |
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
-        echo "--------------------------------------------------------------"
-        echo "${{ secrets.jrstation }}"
-        echo "${{ secrets.JRSTATION }}"
-        echo "${{ secrets.jrstation }}" | docker login -u "${{ secrets.jrstation }}" --password-stdin
-        echo "--------------------------------------------------------------"
+        echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
         docker build -t myapp --build-arg PROJECT_VERSION=$(cat $GITHUB_WORKSPACE/version.txt) .
-        
-        
         docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
