@@ -33,7 +33,8 @@ jobs:
         #echo "NEW_VERSION set to: $new_version"
         #echo $new_version > version.txt
         #cp version.txt $GITHUB_WORKSPACE
-        echo $new_version > $GITHUB_WORKSPACE/version.txt
+        #echo $new_version > $GITHUB_WORKSPACE/version.txt
+        mv version.txt $GITHUB_WORKSPACE
 
 
     - name: Build-with-Maven
