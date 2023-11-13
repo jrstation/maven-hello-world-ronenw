@@ -45,4 +45,5 @@ jobs:
     - name: build-with-Docker
       run: |
         echo "Output from Step 1: ${{ env.NEW_VERSION }}"
-        docker build -t myapp --build-arg PROJECT_VERSION=${{ env.NEW_VERSION }} .
+        echo "Output from Step 1: $NEW_VERSION"
+        # docker build -t myapp --build-arg PROJECT_VERSION=${{ env.NEW_VERSION }} .
