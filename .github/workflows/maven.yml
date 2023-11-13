@@ -52,3 +52,8 @@ jobs:
     - name: Push Docker Image to Docker Hub
       run: |
        docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
+
+    - name: Download and Run Docker Image
+      run: |
+        docker pull jrstation/myapp:1.0.0
+        docker run -d --name myapp-container -p 8080:80 jrstation/myapp:1.0.0
