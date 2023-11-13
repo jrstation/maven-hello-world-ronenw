@@ -31,13 +31,15 @@ jobs:
         mvn versions:set -DnewVersion=${new_version}
         #echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
         #echo "NEW_VERSION set to: $new_version"
-        echo $new_version > version.txt
-        cp version.txt $GITHUB_WORKSPACE
+        #echo $new_version > version.txt
+        #cp version.txt $GITHUB_WORKSPACE
+        echo $new_version > $GITHUB_WORKSPACE/version.txt
+
 
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
-        echo "Output from Step 1: $(cat myapp/version.txt)"
+        echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
         #echo "Output from Step 1: ${{ env.NEW_VERSION }}"
         #echo "::set-output name=env::${{ env.NEW_VERSION }}"
 
@@ -53,7 +55,8 @@ jobs:
         
     - name: build-with-Docker
       run: |
-        echo "Output from Step 1: $(cat myapp/version.txt)"
+        echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
+        #echo "Output from Step 1: $(cat myapp/version.txt)"
         #echo "Output from Step 1: ${{ needs.build.outputs.env }}"
         #echo "Output from Step 1: ${{ needs.build.outputs.env.NEW_VERSION }}"
         # docker build -t myapp --build-arg PROJECT_VERSION=${{ env.NEW_VERSION }} .
