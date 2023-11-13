@@ -40,11 +40,10 @@ jobs:
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
-    
+        
     - name: build-with-Docker
       run: |
-        pwd
-        ls -l 
-        ls -l $GITHUB_WORKSPACE
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
         docker build -t myapp --build-arg PROJECT_VERSION=$(cat $GITHUB_WORKSPACE/version.txt) .
+        echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.jrstation }}" --password-stdin
+        docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
