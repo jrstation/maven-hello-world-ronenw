@@ -45,6 +45,8 @@ jobs:
         docker build -t myapp:$(cat $GITHUB_WORKSPACE/version.txt) --build-arg PROJECT_VERSION=$(cat $GITHUB_WORKSPACE/version.txt) .
         echo "------ docker image ls -----------------"
         docker image ls | grep myapp
+        docker tag myapp:$(cat $GITHUB_WORKSPACE/version.txt) jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
+        docker image ls | grep myapp
         echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
         
     - name: Push Docker Image to Docker Hub
