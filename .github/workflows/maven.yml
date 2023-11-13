@@ -39,6 +39,10 @@ jobs:
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
+        pwd
+        ls -l 
+        ls -l ./myapp
+        ls -l $GITHUB_WORKSPACE
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
         #echo "Output from Step 1: ${{ env.NEW_VERSION }}"
         #echo "::set-output name=env::${{ env.NEW_VERSION }}"
