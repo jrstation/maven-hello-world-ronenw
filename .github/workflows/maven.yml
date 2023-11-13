@@ -40,32 +40,11 @@ jobs:
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
-        pwd
-        ls -l 
-        ls -l ./myapp
-        ls -l $GITHUB_WORKSPACE
-        echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
-        #echo "Output from Step 1: ${{ env.NEW_VERSION }}"
-        #echo "::set-output name=env::${{ env.NEW_VERSION }}"
-
-  build2:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-      with:
-        path: .
-        
+    
     - name: build-with-Docker
       run: |
         pwd
         ls -l 
-        ls -l ./myapp
         ls -l $GITHUB_WORKSPACE
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
-        #echo "Output from Step 1: $(cat myapp/version.txt)"
-        #echo "Output from Step 1: ${{ needs.build.outputs.env }}"
-        #echo "Output from Step 1: ${{ needs.build.outputs.env.NEW_VERSION }}"
-        # docker build -t myapp --build-arg PROJECT_VERSION=${{ env.NEW_VERSION }} .
+        docker build -t myapp --build-arg PROJECT_VERSION=$(cat $GITHUB_WORKSPACE/version.txt) .
