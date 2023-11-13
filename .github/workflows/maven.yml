@@ -46,6 +46,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+      with:
+        path: ./myapp
+        
     - name: build-with-Docker
       run: |
         echo "Output from Step 1: $(cat myapp/version.txt)"
