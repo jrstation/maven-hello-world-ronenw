@@ -27,7 +27,7 @@ jobs:
       run: |
         cd myapp
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
+        new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2, $3+1}')
         mvn versions:set -DnewVersion=${new_version}
         echo $new_version > version.txt
         echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
@@ -54,6 +54,6 @@ jobs:
     - name: Download and Run Docker Image
       run: |
         docker pull jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
-        docker run --rm -it --name myapp-container -p 8080:80 jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
+        docker run --rm -d --name myapp-container -p 8080:80 jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
         docker container ls
 
