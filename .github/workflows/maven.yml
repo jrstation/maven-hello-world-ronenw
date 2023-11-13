@@ -29,12 +29,12 @@ jobs:
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
-        #echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
-        #echo "NEW_VERSION set to: $new_version"
-        #echo $new_version > version.txt
-        #cp version.txt $GITHUB_WORKSPACE
-        #echo $new_version > $GITHUB_WORKSPACE/version.txt
+        echo $new_version > version.txt
+        echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+        echo "NEW_VERSION set to: $new_version"
+        echo "Output from Step 1: $(cat version.txt)"
         mv version.txt $GITHUB_WORKSPACE
+       
 
 
     - name: Build-with-Maven
