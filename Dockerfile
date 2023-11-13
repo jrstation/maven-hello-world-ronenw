@@ -1,8 +1,8 @@
 # Stage 1: Build Stage
 FROM maven:3.8.4-openjdk-8-slim AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
+COPY ./myapp/pom.xml .
+COPY ./myapp/src ./src
 ARG PROJECT_VERSION
 RUN mvn versions:set -DnewVersion=${PROJECT_VERSION} && mvn clean package
 
