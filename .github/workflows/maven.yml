@@ -42,7 +42,7 @@ jobs:
     - name: build-with-Docker
       run: |
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
-        docker build -t myapp:$(cat $GITHUB_WORKSPACE/version.txt) --build-arg .
+        docker build -t myapp:$(cat $GITHUB_WORKSPACE/version.txt) .
         echo "------ docker image ls -----------------"
         docker image ls | grep myapp
         echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
