@@ -29,14 +29,15 @@ jobs:
         current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         new_version=$(echo $current_version | awk -F '.' '{printf "%d.%d.%d", $1, $2+1, 0}')
         mvn versions:set -DnewVersion=${new_version}
-        echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
-        echo "NEW_VERSION set to: $new_version"
+        #echo "NEW_VERSION=${new_version}" >> $GITHUB_ENV
+        #echo "NEW_VERSION set to: $new_version"
+        echo $new_version > version.txt
 
     - name: Build-with-Maven
       run: |
         mvn -B package --file ./myapp/pom.xml
-        echo "Output from Step 1: ${{ env.NEW_VERSION }}"
-        echo "::set-output name=env::${{ env.NEW_VERSION }}"
+        #echo "Output from Step 1: ${{ env.NEW_VERSION }}"
+        #echo "::set-output name=env::${{ env.NEW_VERSION }}"
 
   build2:
     needs: build
@@ -45,6 +46,7 @@ jobs:
     steps:
     - name: build-with-Docker
       run: |
-        echo "Output from Step 1: ${{ needs.build.outputs.env }}"
-        echo "Output from Step 1: ${{ needs.build.outputs.env.NEW_VERSION }}"
+        echo "Output from Step 1: $(cat myapp/version.txt)"
+        #echo "Output from Step 1: ${{ needs.build.outputs.env }}"
+        #echo "Output from Step 1: ${{ needs.build.outputs.env.NEW_VERSION }}"
         # docker build -t myapp --build-arg PROJECT_VERSION=${{ env.NEW_VERSION }} .
