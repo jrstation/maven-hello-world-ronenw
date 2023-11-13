@@ -34,8 +34,6 @@ jobs:
         echo "NEW_VERSION set to: $new_version"
         echo "Output from Step 1: $(cat version.txt)"
         mv version.txt $GITHUB_WORKSPACE
-       
-
 
     - name: Build-with-Maven
       run: |
@@ -44,6 +42,11 @@ jobs:
     - name: build-with-Docker
       run: |
         echo "Output from Step 1: $(cat $GITHUB_WORKSPACE/version.txt)"
-        echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
         docker build -t myapp --build-arg PROJECT_VERSION=$(cat $GITHUB_WORKSPACE/version.txt) .
-        docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
+        echo "------ docker image ls -----------------"
+        docker image ls
+        echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
+        
+    - name: Push Docker Image to Docker Hub
+      run: |
+       docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
