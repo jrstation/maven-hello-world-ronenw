@@ -59,4 +59,4 @@ jobs:
 
     - name: Run-Java-Code
       run: |
-        docker exec -it myapp-container java -jar /app/target/myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar
+        docker exec -i myapp-container java -jar /app/target/myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar
