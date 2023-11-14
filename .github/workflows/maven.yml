@@ -47,13 +47,19 @@ jobs:
         docker image ls | grep myapp
         echo "dckr_pat_3Unwl6pTFz-frW1QcshL5RinYmc" | docker login -u jrstation --password-stdin
         
-    - name: Push Docker Image to Docker Hub
+    - name: Push-Docker-Image
       run: |
        docker push jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
 
-    - name: Download and Run Docker Image
+    - name: docker-pull
       run: |
         docker pull jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
         docker run --rm -d --name myapp-container -p 8080:80 jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
         docker container ls
+
+    #- name: Build with Maven
+     # run: mvn clean install
+
+    - name: Run-Java-Code
+      run: java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.App
 
