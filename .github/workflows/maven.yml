@@ -61,5 +61,5 @@ jobs:
      # run: mvn clean install
 
     - name: Run-Java-Code
-      run: java -cp target/myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar com.myapp.App
+      run: java -cp myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar com.myapp.App
 
