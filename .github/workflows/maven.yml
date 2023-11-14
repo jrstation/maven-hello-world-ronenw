@@ -54,9 +54,9 @@ jobs:
     - name: docker-pull
       run: |
         docker pull jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
-        docker run --rm -d --name myapp-container -p 8080:80 jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
+        docker run --rm -i --name myapp-container -p 8080:80 jrstation/myapp:$(cat $GITHUB_WORKSPACE/version.txt)
         docker container ls
 
-    - name: Run-Java-Code
-      run: |
-        docker exec -i myapp-container java -jar /app/target/myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar
+ #   - name: Run-Java-Code
+  #    run: |
+  #      docker exec -i myapp-container java -jar /app/target/myapp-$(cat $GITHUB_WORKSPACE/version.txt).jar
